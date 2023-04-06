@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KFCv50 Day</title>
+  <title>今天星期四吗</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 </head>
 
 <style>
@@ -21,6 +22,8 @@
     height: 100vh;
     box-sizing: border-box;
     padding: 0 var(--screen-padding);
+    color: #ffffff;
+    background-image: radial-gradient(#EF5D60, #EF5D70);
   }
   a {
     text-decoration: none;
@@ -57,30 +60,31 @@
     }
   }
 </style>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/zh-cn.js"></script>
 <script>
   window.onload = function() {
     const slot = document.getElementById('count')
+    const today = document.getElementById('date')
 
     let text;
     const day = 4 - (new Date()).getDay()
-    if (day > 0) text = `${day} 天后`
-    else if (day < 0) text = `${day + 7} 天后`
-    else text = '今天'
+    if (day > 0) text = `不是，还有 ${day} 天`
+    else if (day < 0) text = `不是，还有 ${day + 7} 天`
+    else text = `是的，好耶！`
 
     slot.innerText = text
+    today.innerText = moment().format('LL');  
   }
 </script>
 
 <body>
   <div class="container full flex-center-column space-between">
     <header class="mt-5">
-      <h1>KFCv50.day</h1>
+      <div id="date"></div>
+      <div>今天星期四吗</div>
     </header>
     <main>
-      <p class="text-xl">
-        有没有人和我一样很讨厌疯狂星期四的文案，尤其是朋友一发就是发一堆，后面还有人跟着发哈哈哈哈，我不知道笑点在哪里，但是我又不好意思叫他们不要发，然后我就想到一个办法，<span id="count">X</span>是肯德基疯狂星期四，V 我 50，到时我边吃边告诉你这个办法是什么。
-      </p>
+      <div class="text-xl" id="count"></div>
     </main>
     <footer class="mb-10">
       @<a href="//github.com/xoolab/v50">xoolab/v50</a>
