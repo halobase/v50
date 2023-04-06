@@ -2,94 +2,42 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>今天星期四吗</title>
+  <link rel="stylesheet" href="./style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/zh-cn.js"></script>
 </head>
 
-<style>
-  :root {
-    --screen-padding: 0px;
-  }
-  html {
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    width: 100%;
-    height: 100vh;
-    box-sizing: border-box;
-    padding: 0 var(--screen-padding);
-    color: #ffffff;
-    background-image: radial-gradient(#EF5D60, #EF5D70);
-  }
-  a {
-    text-decoration: none;
-  }
-  .full {
-    width: 100%;
-    height: 100%;
-  }
-  .container {
-    max-width: 1024px;
-    margin: 0 auto;
-  }
-  .flex-center-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .space-between {
-    justify-content: space-between;
-  }
-  .mt-5 {
-    margin-top: 5rem;
-  }
-  .mb-10 {
-    margin-bottom: 10rem;
-  }
-  .text-xl {
-    font-size: x-large;
-    line-height: 1.5;
-  }
-  @media screen and (max-width: 765px) {
-    :root {
-      --screen-padding: 8px;
-    }
-  }
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/zh-cn.js"></script>
 <script>
-  window.onload = function() {
-    const slot = document.getElementById('count')
-    const today = document.getElementById('date')
+  window.onload = function () {
+    const answer = document.getElementById("answer");
+    const date = document.getElementById("date");
 
-    let text;
-    const day = 4 - (new Date()).getDay()
-    if (day > 0) text = `不是，还有 ${day} 天`
-    else if (day < 0) text = `不是，还有 ${day + 7} 天`
-    else text = `是的，好耶！`
+    var today = moment();
+    var nextThursday = moment().day(4);
+    if (today.day() >= 4) { 
+      nextThursday.add(7, 'days'); 
+    }
+    var daysUntilThursday = nextThursday.diff(today, "days");
 
-    slot.innerText = text
-    today.innerText = moment().format('LL');  
-  }
+    answer.innerText =
+      daysUntilThursday == 0
+        ? `是的，好耶！`
+        : `不是，还有 ${daysUntilThursday} 天`;
+    date.innerText = today.format("LL");
+  };
 </script>
 
 <body>
-  <div class="container full flex-center-column space-between">
-    <header class="mt-5">
-      <div id="date"></div>
-      <div>今天星期四吗</div>
-    </header>
-    <main>
-      <div class="text-xl" id="count"></div>
-    </main>
-    <footer class="mb-10">
-      @<a href="//github.com/xoolab/v50">xoolab/v50</a>
-    </footer>
-  </div>
+  <main>
+    <div id="date"></div>
+    <div id="question">今天星期四吗</div>
+    <div id="answer"></div>
+    <div id="github">@<a href="//github.com/xoolab/v50">xoolab/v50</a></div>
+  </main>
 </body>
 
 </html>
